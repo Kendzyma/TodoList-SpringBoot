@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout" xmlns:th="http://www.thymeleaf.org">
+<body id-page>
+<div layout:fragment="content">
+    <table class="table" >
+        <thead>
+        <tr>
+            <th>S/N</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Date Created</th>
+            <th>Time Created</th>
+            <th>Date Completed</th>
+            <th>Time Completed</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody th:each="task: ${completedList}" th:with="page1 = ${'Completed'}">
+        <tr class="bg-success text-white">
+            <td></td>
+            <td th:text="${task.getTitle()}"></td>
+            <td th:text="${task.getDescription()}"></td>
+            <td th:text="${task.getStatus()}"></td>
+            <td th:text="${task.getCreatedAtDate()}"></td>
+            <td th:text="${task.getCreatedTime()}"></td>
+            <td th:text="${task.getCompletedAtDate()}"></td>
+            <td th:text="${task.getCompletedAtTime()}"></td>
+            <td>
+                <a class="btn btn-danger" th:href="@{/Task/delete-task/{Page}/{id}(id=${task.getId()},Page=${page1})}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+            </td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

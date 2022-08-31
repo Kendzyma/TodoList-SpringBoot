@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout" xmlns:th="http://www.thymeleaf.org">
+<body id-page>
+<div layout:fragment="content">
+    <table class="table" >
+        <thead>
+        <tr>
+            <th>S/N</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Date Created</th>
+            <th>Time Created</th>
+        </tr>
+        </thead>
+        <tbody th:each="task: ${inProgress}">
+        <tr class="bg-primary text-white">
+            <td></td>
+            <td th:text="${task.getTitle()}"></td>
+            <td th:text="${task.getDescription()}"></td>
+            <td th:text="${task.getStatus()}"></td>
+            <td th:text="${task.getCreatedAtDate()}"></td>
+            <td th:text="${task.getCreatedTime()}"></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

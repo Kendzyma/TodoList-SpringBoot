@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout" xmlns:th="http://www.thymeleaf.org">
+<body id-page>
+<div layout:fragment="content">
+    <table class="table" >
+        <thead>
+        <tr>
+            <th>S/N</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Date Created</th>
+            <th>Time Created</th>
+            <th>Move to</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody th:each="task: ${pendingList}"  th:with="page1 = ${'Pending'}">
+        <tr class="bg-danger text-white">
+            <td></td>
+            <td th:text="${task.getTitle()}"></td>
+            <td th:text="${task.getDescription()}"></td>
+            <td th:text="${task.getStatus()}"></td>
+            <td th:text="${task.getCreatedAtDate()}"></td>
+            <td th:text="${task.getCreatedTime()}"></td>
+            <td><a class="btn btn-success" th:href="@{/Task/move-to-done/{Pending}/{id}(id=${task.getId()},Pending=${page1})}">Done <i class="fa fa-check ml-1" aria-hidden="true" ></i></a>&nbsp;
+            </td>
+            <td><a class="btn btn-info" th:href="@{/Task/edit-task/{id}(id=${task.getId()})}"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;
+                <a class="btn btn-danger" th:href="@{/Task/delete-task/{Page}/{id}(id=${task.getId()},Page=${page1})}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

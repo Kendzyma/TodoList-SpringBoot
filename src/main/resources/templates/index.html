@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
+
+<body>
+            <div layout:fragment="content">
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="row">
+                        <div class="col-12 mx-auto">
+                            <h3>Dashboard</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-header bg-success text-white">Create Task</h5>
+                                    <p class="card-text">Create new Task to add to your list</p>
+                                    <a th:href="@{/Task/create}" class="btn btn-success btn-block d-grid gap-2 col-3 mx-auto"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-header bg-primary text-white">All Task</h5>
+                                    <p class="card-text">View All task you Current have</p>
+                                    <a th:href="@{/Task/all-task}" class="btn btn-primary btn-block d-grid gap-2 col-3 mx-auto"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-header bg-danger text-white">Pending task</h5>
+                                    <p class="card-text">View All your pending task</p>
+                                    <a th:href="@{/Task/pending-task}" class="btn btn-danger btn-block d-grid gap-2 col-3 mx-auto"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mt-2">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-header bg-dark text-white">Completed Task</h5>
+                                    <p class="card-text">View all completed task</p>
+                                    <a th:href="@{/Task/all-completed-task}" class="btn btn-dark btn-block d-grid gap-2 col-3 mx-auto"><i class="fa fa-check" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                            <div class="col-sm-4 mt-2">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <h5 class="card-header bg-warning text-white">In Progress</h5>
+                                        <p class="card-text">View Task that are in progress</p>
+                                        <a th:href="@{/Task/in-progress-task}" class="btn btn-warning btn-block d-grid gap-2 col-3 mx-auto"><i class="fa fa-tasks" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                    </div>
+                    </div>
+
+
+                </div>
+            </div>
+</body>
+
+</html>
