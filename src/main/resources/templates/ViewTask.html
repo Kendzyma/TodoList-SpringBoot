@@ -23,7 +23,6 @@
         <td th:text="${task.getStatus()}"></td>
         <td th:text="${task.getCreatedAtDate()}"></td>
         <td th:text="${task.getCreatedTime()}"></td>
-<!--        <td><a class="btn btn-success" th:href="@{/Task/move-to-done/{Pending}/{id}(id=${task.getId()},Pending=${page1})}">Done <i class="fa fa-check ml-1" aria-hidden="true" ></i></a>&nbsp;-->
         <td><a class="btn btn-success" th:href="@{/Task/move-to-done/{Page}/{id}(id=${task.getId()},Page=${page})}">Done <i class="fa fa-check ml-1" aria-hidden="true" ></i></a>&nbsp;
         </td>
         <td><a class="btn btn-info" th:href="@{/Task/edit-task/{id}(id=${task.getId()})}"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;

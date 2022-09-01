@@ -1,4 +1,5 @@
 package com.activitytracker.Service;
+
 import com.activitytracker.Exceptions.TaskNotFoundException;
 import com.activitytracker.Exceptions.UserNotFoundException;
 import com.activitytracker.Model.Status;
@@ -21,7 +22,7 @@ public class TaskServiceImp implements TaskService {
     @Autowired
     private TaskRepository taskRepository;
     @Autowired
-    private  UserRepository userRepository;
+    private UserRepository userRepository;
 
     /*
      * Create task implementation
@@ -29,44 +30,48 @@ public class TaskServiceImp implements TaskService {
     @Override
     public void createTask(Task task, String email) {
         Optional<User> user = userRepository.findUserByEmail(email);
-        if(user.isPresent()) {
+        if (user.isPresent()) {
             task.setCreatedAtDate(TimeAndDate.getCurrentDate());
             task.setCreatedTime(TimeAndDate.getCurrentTime());
             task.setUser(user.get());
             task.setStatus(Status.PENDING.name());
             taskRepository.save(task);
-        }else throw new UserNotFoundException("This user was not found");
+        } else throw new UserNotFoundException("This user was not found");
     }
+
     /*
      * get all task implementation
      */
     @Override
     public List<Task> getAllTask(String email) {
 
-        User user = userRepository.findUserByEmail(email).orElseThrow(()->new TaskNotFoundException("User not found"));
-        return taskRepository.findAllByUser(user).orElseThrow(()->new TaskNotFoundException("Task not found"));
+        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new TaskNotFoundException("User not found"));
+        return taskRepository.findAllByUser(user).orElseThrow(() -> new TaskNotFoundException("Task not found"));
     }
+
     /*
      * implementation for getting a specific task
      */
     @Override
     public Task getTask(int id) {
-        return taskRepository.findById(id).orElseThrow(()->new TaskNotFoundException("Task Not found"));
+        return taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task Not found"));
     }
+
     /*
      * implementation for editing a specific task
      */
     @Override
     public void editTask(int id, Task task) {
-       Task tmpTask = taskRepository.findById(id).orElseThrow(()->new TaskNotFoundException("Task Not found"));
-       tmpTask.setTitle(task.getTitle());
-       tmpTask.setDescription(task.getDescription());
-       tmpTask.setUpdateDate(task.getUpdateDate());
-       tmpTask.setUpdateTime(task.getUpdateTime());
-       tmpTask.setStatus(Status.INPROGRESS.name());
+        Task tmpTask = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task Not found"));
+        tmpTask.setTitle(task.getTitle());
+        tmpTask.setDescription(task.getDescription());
+        tmpTask.setUpdateDate(task.getUpdateDate());
+        tmpTask.setUpdateTime(task.getUpdateTime());
+        tmpTask.setStatus(Status.INPROGRESS.name());
 
-       taskRepository.save(tmpTask);
+        taskRepository.save(tmpTask);
     }
+
     /*
      * implementation for deleting a specific task
      */
@@ -80,8 +85,8 @@ public class TaskServiceImp implements TaskService {
      */
     @Override
     public List<Task> getPendingTask(String email) {
-        User user = userRepository.findUserByEmail(email).orElseThrow(()->new TaskNotFoundException("User not found"));
-        return taskRepository.findTasksByUserAndStatus(user, Status.PENDING.name()).orElseThrow(()->new TaskNotFoundException("Task Not found"));
+        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new TaskNotFoundException("User not found"));
+        return taskRepository.findTasksByUserAndStatus(user, Status.PENDING.name()).orElseThrow(() -> new TaskNotFoundException("Task Not found"));
     }
 
     /*
@@ -90,8 +95,8 @@ public class TaskServiceImp implements TaskService {
 
     @Override
     public List<Task> getCompletedTask(String email) {
-        User user = userRepository.findUserByEmail(email).orElseThrow(()->new TaskNotFoundException("User not found"));
-        return taskRepository.findTasksByUserAndStatus(user, Status.DONE.name()).orElseThrow(()->new TaskNotFoundException("Task Not found"));
+        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new TaskNotFoundException("User not found"));
+        return taskRepository.findTasksByUserAndStatus(user, Status.DONE.name()).orElseThrow(() -> new TaskNotFoundException("Task Not found"));
     }
 
     /*
@@ -99,37 +104,54 @@ public class TaskServiceImp implements TaskService {
      */
     @Override
     public void completeTask(int id) {
-       Task task = taskRepository.findById(id).orElseThrow(()->new TaskNotFoundException("Task not Found"));
+        Task task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not Found"));
         task.setStatus(Status.DONE.name());
-       taskRepository.save(task);
+        taskRepository.save(task);
     }
+
     /*
      * implementation getting task that are in progress
      */
     @Override
     public List<Task> getInProgressTask(String email) {
-        User user = userRepository.findUserByEmail(email).orElseThrow(()->new TaskNotFoundException("User not found"));
-        return taskRepository.findTasksByUserAndStatus(user, Status.INPROGRESS.name()).orElseThrow(()->new TaskNotFoundException("Task Not found"));
+        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new TaskNotFoundException("User not found"));
+        return taskRepository.findTasksByUserAndStatus(user, Status.INPROGRESS.name()).orElseThrow(() -> new TaskNotFoundException("Task Not found"));
     }
 
+    /*
+     * Move task to Done implementation
+     */
     @Override
-    public void moveToDone(String email,int id) {
-        User user = userRepository.findUserByEmail(email).orElseThrow(()->new TaskNotFoundException("User not found"));
-      Task task=  taskRepository.findTasksByUserAndId(user,id);
-      task.setStatus(Status.DONE.name());
-      task.setCompletedAtDate(TimeAndDate.getCurrentDate());
-      task.setCompletedAtTime(TimeAndDate.getCurrentTime());
-      taskRepository.save(task);
+    public void moveToDone(String email, int id) {
+        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new TaskNotFoundException("User not found"));
+        Task task = taskRepository.findTasksByUserAndId(user, id);
+        task.setStatus(Status.DONE.name());
+        task.setCompletedAtDate(TimeAndDate.getCurrentDate());
+        task.setCompletedAtTime(TimeAndDate.getCurrentTime());
+        taskRepository.save(task);
 
     }
+
+    /*
+     * Move task to pending implementation
+     */
     @Override
-    public void moveToPending(String email,int id) {
-        User user = userRepository.findUserByEmail(email).orElseThrow(()->new TaskNotFoundException("User not found"));
-        Task task=  taskRepository.findTasksByUserAndId(user,id);
+    public void moveToPending(String email, int id) {
+        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new TaskNotFoundException("User not found"));
+        Task task = taskRepository.findTasksByUserAndId(user, id);
         task.setStatus(Status.PENDING.name());
         task.setUpdateDate(TimeAndDate.getCurrentDate());
         task.setUpdateTime(TimeAndDate.getCurrentTime());
         taskRepository.save(task);
 
+    }
+
+    /*
+     * Searching for a task implementation
+     */
+    @Override
+    public Optional<List<Task>> searchTask(Task task) {
+
+        return taskRepository.findTasksByTitle(task.getTitle());
     }
 }

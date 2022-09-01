@@ -3,6 +3,7 @@ package com.activitytracker.Service.Interface;
 import com.activitytracker.Model.Task;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TaskService {
     void createTask(Task task, String email);
@@ -23,7 +24,9 @@ public interface TaskService {
 
     List<Task> getInProgressTask(String email);
 
-    void moveToDone(String email,int id);
+    void moveToDone(String email, int id);
 
     void moveToPending(String email, int id);
+
+    Optional<List<Task>> searchTask(Task task);
 }
