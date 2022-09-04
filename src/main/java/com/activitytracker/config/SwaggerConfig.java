@@ -15,24 +15,23 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
     @Bean
-    public Docket productApi() {
+    public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(getApiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
     }
-
     private ApiInfo getApiInfo() {
-        Contact contact = new Contact("webtutsplus", "http://webtutsplus.com", "contact.webtutsplus@gmail.com");
-        return new ApiInfoBuilder()
-                .title("Ecommerce API")
-                .description("Documentation Ecommerce api")
-                .version("1.0.0")
-                .license("Apache 2.0")
-                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0")
-                .contact(contact)
-                .build();
-    }
+
+            return new ApiInfoBuilder()
+                    .title("FullStackCode EIS")
+                    .description("This page lists API of Employee Information System")
+                    .version("1.0")
+                    .license("v2.0")
+                    .licenseUrl("https://www.fullstackcode.dev/licence.html")
+                    .contact(new Contact("Suresh", "https://www.fullstackcode.dev/","suresh@fullstackcode.dev"))
+                    .build();
+        }
+
 }
